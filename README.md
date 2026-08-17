@@ -1,5 +1,7 @@
 # Nós Dois
 
+[![CI](https://github.com/victorhugo-ml/nois-dois-app/actions/workflows/ci.yml/badge.svg)](https://github.com/victorhugo-ml/nois-dois-app/actions/workflows/ci.yml)
+
 Aplicação pessoal multiplataforma para organização compartilhada de rotina, finanças, metas, memórias e eventos.
 
 O projeto começou como uma aplicação web e evoluiu para uma experiência instalável via **PWA** e **Android/Capacitor**, com autenticação, sincronização em tempo real, notificações e recursos nativos.
