@@ -6524,7 +6524,7 @@ function Config() {
         sub === 'backup' ? React.createElement('div', { className: 'card' },
             React.createElement('div', { className: 'ct' }, 'Backup e Restauracao'),
             React.createElement('div', { className: 'fg', style: { gap: '10px', paddingTop: '2px' } },
-                React.createElement('div', { style: { fontSize: '.72rem', color: 'var(--muted)', lineHeight: 1.5 } }, 'Faca backup de todos os dados ou restaure um backup anterior.'),
+                React.createElement('div', { style: { fontSize: '.72rem', color: 'var(--muted)', lineHeight: 1.5 } }, 'Faça backup de todos os dados ou restaure um backup anterior.'),
                 React.createElement('button', { className: 'bp', onClick: doBackup }, 'Fazer Backup (JSON)'),
                 React.createElement('div', { style: { borderTop: '1px solid var(--b2)', paddingTop: '10px' } },
                     React.createElement('div', { style: { fontSize: '.7rem', color: 'var(--muted)', marginBottom: '8px', fontWeight: 700 } }, 'Restaurar backup'),
@@ -6534,7 +6534,7 @@ function Config() {
                     )
                 ),
                 restoreData ? React.createElement('div', { style: { background: 'rgba(244,63,94,.08)', border: '1px solid rgba(244,63,94,.3)', borderRadius: '10px', padding: '12px' } },
-                    React.createElement('div', { style: { fontSize: '.75rem', marginBottom: '10px', color: 'var(--rose3)' } }, 'ATENCAO: Isso substituira TODOS os dados atuais. Tem certeza?'),
+                    React.createElement('div', { style: { fontSize: '.75rem', marginBottom: '10px', color: 'var(--rose3)' } }, 'ATENÇÃO: Isso substituirá TODOS os dados atuais. Tem certeza?'),
                     React.createElement('div', { style: { display: 'flex', gap: '8px' } },
                         React.createElement('button', { className: 'bp', style: { background: 'var(--danger)', flex: 1 }, onClick: confirmRestore }, 'Restaurar'),
                         React.createElement('button', { className: 'bs', style: { flex: 1 }, onClick: function() { setRestoreData(null); } }, '✕ Cancelar')
