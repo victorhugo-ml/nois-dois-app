@@ -17,7 +17,10 @@ A configuração real do Firebase permanece fora do repositório público.
 ### Integração Firebase
 `services/firebase.js` inicializa Firebase Authentication, Realtime Database, Storage e Cloud Messaging e mantém os adaptadores `window.__fb` e `window.__fcm` consumidos pelo código legado.
 
-Essa camada foi a **primeira extração da refatoração**: antes, inicialização, configuração e helpers do Firebase estavam diretamente em `index.html`.
+### Autenticação e sessão
+`services/auth.js` centraliza normalização de e-mail, allowlist, login, observação de sessão, reset de senha, usuário atual, validação da senha, logout e limpeza do estado local relacionado à sessão.
+
+A interface deixa de chamar Firebase Auth diretamente. O `app.js` passa a depender da API `window.__auth`, reduzindo acoplamento entre componentes React e infraestrutura.
 
 ### Backend
 `functions/index.js` contém Cloud Functions executadas no ambiente Firebase/Node.js.
@@ -30,42 +33,22 @@ Essa camada foi a **primeira extração da refatoração**: antes, inicializaç�
 
 ## Compatibilidade durante a migração
 
-A primeira etapa não altera as APIs globais já utilizadas por `app.js`.
-
 ```text
 window.__ALLOWED_USERS
 window.__fb
 window.__fcm
+window.__auth
 ```
 
-Isso permite reduzir acoplamento gradualmente sem reescrever milhares de linhas de uma só vez.
+Cada PR extrai uma responsabilidade e preserva o comportamento existente.
+
+## Testes
+
+`tests/auth-service.test.js` cobre a nova camada com mocks simples, sem acessar Firebase real.
 
 ## Próximas extrações sugeridas
 
-```text
-src/
-  app/
-  components/
-  features/
-    agenda/
-    finances/
-    goals/
-    journal/
-    gallery/
-  services/
-    auth/
-    database/
-    storage/
-    notifications/
-  native/
-```
-
-Prioridades:
-
-1. separar autenticação e sessão;
-2. separar acesso ao banco por domínio;
-3. extrair notificações;
-4. modularizar funcionalidades estáveis do `app.js`;
-5. adicionar testes para serviços e regras críticas.
-
-A proposta continua incremental: **extrair, testar, preservar comportamento e só então avançar para a próxima responsabilidade**.
+1. separar acesso ao banco por domínio;
+2. extrair notificações;
+3. modularizar funcionalidades estáveis do `app.js`;
+4. ampliar testes para serviços e regras críticas.

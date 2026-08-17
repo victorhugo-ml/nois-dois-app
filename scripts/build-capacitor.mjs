@@ -15,7 +15,10 @@ const FILES = [
   'icon.svg',
   'manifest.webmanifest',
   'firebase-messaging-sw.js',
-  'capacitor-bridge.js'
+  'capacitor-bridge.js',
+  'config/public-config.js',
+  'services/firebase.js',
+  'services/auth.js'
 ];
 
 async function main() {
@@ -27,7 +30,9 @@ async function main() {
       console.warn(`[build:web] aviso: ${f} não encontrado`);
       continue;
     }
-    await copyFile(src, join(OUT, f));
+    const dest = join(OUT, f);
+    await mkdir(dirname(dest), { recursive: true });
+    await copyFile(src, dest);
     console.log(`[build:web] ${f}`);
   }
   console.log(`[build:web] ✓ www/ pronto`);

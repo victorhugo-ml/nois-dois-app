@@ -6346,7 +6346,7 @@ function Config() {
                     React.createElement('div', { style: { fontSize: '.66rem', color: 'var(--muted)', marginBottom: '8px' } },
                         'Logado como ',
                         React.createElement('b', { style: { color: 'var(--rose3)' } },
-                            (window.__fb && window.__fb.auth && window.__fb.auth.currentUser && window.__fb.auth.currentUser.email) || '—'
+                            (window.__auth && window.__auth.currentEmail && window.__auth.currentEmail()) || '—'
                         )
                     ),
                     window.__native && window.__native.isNative ? React.createElement('button', {
@@ -6365,10 +6365,10 @@ function Config() {
                                     if (!avail) { toast('Seu celular não tem biometria configurada'); return; }
                                     var pwd = prompt('Digite sua senha pra ativar a biometria:');
                                     if (!pwd) return;
-                                    var em = window.__fb.auth.currentUser && window.__fb.auth.currentUser.email;
+                                    var em = window.__auth && window.__auth.currentEmail && window.__auth.currentEmail();
                                     if (!em) { toast('Sem usuário logado'); return; }
-                                    // valida senha re-autenticando
-                                    window.__fb.auth.signInWithEmailAndPassword(em, pwd).then(function() {
+                                    // valida senha pelo serviço de autenticação
+                                    window.__auth.verifyCurrentPassword(pwd).then(function() {
                                         return window.__native.biometricSaveCredentials(em, pwd);
                                     }).then(function() {
                                         localStorage.setItem('bio_enabled', '1');
@@ -6385,12 +6385,15 @@ function Config() {
                         onClick: function() {
                             if (!confirm('Sair da conta? Você precisará fazer login novamente.')) return;
                             try {
-                                if (window.__fb && window.__fb.auth) window.__fb.auth.signOut();
+                                if (window.__auth) window.__auth.signOut().catch(function() {});
                                 if (window.__native && window.__native.biometricDeleteCredentials) window.__native.biometricDeleteCredentials();
-                                localStorage.removeItem('myName');
-                                localStorage.removeItem('bio_enabled');
-                                localStorage.removeItem('bio_declined');
-                                Object.keys(localStorage).forEach(function(k) { if (k.indexOf('fcm_token_') === 0) localStorage.removeItem(k); });
+                                if (window.__auth) {
+                                    window.__auth.clearLocalSession();
+                                } else {
+                                    localStorage.removeItem('myName');
+                                    localStorage.removeItem('bio_enabled');
+                                    localStorage.removeItem('bio_declined');
+                                }
                             } catch(ex) {}
                             location.reload();
                         }
@@ -6865,22 +6868,28 @@ function LoginScreen(props) {
     }, []);
 
     function loginWithCreds(em, password) {
-        var allowed = window.__ALLOWED_USERS || {};
-        if (!allowed[em]) { setErr('Este email não tem acesso ao app'); return Promise.reject(); }
-        setBusy(true); setErr('');
-        var auth = window.__fb && window.__fb.auth;
-        if (!auth) { setBusy(false); setErr('Auth indisponível'); return Promise.reject(); }
-        return auth.signInWithEmailAndPassword(em, password).then(function(cred) {
-            var displayName = allowed[em];
+        var authService = window.__auth;
+        if (!authService) {
+            setErr('Auth indisponível');
+            return Promise.reject(new Error('Auth indisponível'));
+        }
+
+        setBusy(true);
+        setErr('');
+
+        return authService.signIn(em, password).then(function(result) {
+            var displayName = result.identity;
             try { localStorage.setItem('myName', displayName); } catch(e2) {}
             setBusy(false);
-            if (onLogin) onLogin(displayName, cred.user, password);
-            return cred;
+            if (onLogin) onLogin(displayName, result.user, password);
+            return result.credential;
         }).catch(function(e2) {
             setBusy(false);
             var msg = 'Erro ao entrar';
             if (e2 && e2.code) {
-                if (e2.code === 'auth/wrong-password' || e2.code === 'auth/invalid-credential') msg = 'Senha incorreta';
+                if (e2.code === 'auth/not-allowed') msg = 'Este email não tem acesso ao app';
+                else if (e2.code === 'auth/unavailable') msg = 'Auth indisponível';
+                else if (e2.code === 'auth/wrong-password' || e2.code === 'auth/invalid-credential') msg = 'Senha incorreta';
                 else if (e2.code === 'auth/user-not-found') msg = 'Conta não existe — peça pra criar no Firebase Console';
                 else if (e2.code === 'auth/too-many-requests') msg = 'Muitas tentativas — aguarde uns minutos';
                 else if (e2.code === 'auth/network-request-failed') msg = 'Sem conexão';
@@ -6918,9 +6927,11 @@ function LoginScreen(props) {
     function doReset() {
         var em = (email || '').trim().toLowerCase();
         if (!em) { setErr('Digite o email primeiro'); return; }
-        var auth = window.__fb && window.__fb.auth;
-        if (!auth) return;
-        auth.sendPasswordResetEmail(em).then(function() {
+
+        var authService = window.__auth;
+        if (!authService) { setErr('Auth indisponível'); return; }
+
+        authService.sendPasswordReset(em).then(function() {
             setReset(true); setErr('');
         }).catch(function(e2) {
             setErr((e2 && e2.message) || 'Erro ao enviar reset');
@@ -7064,25 +7075,24 @@ function App() {
     var authUser   = _authUser[0]; var setAuthUser = _authUser[1];
 
     useEffect(function() {
-        var auth = window.__fb && window.__fb.auth;
-        if (!auth) { setAuthUser(null); return; }
-        var unsub = auth.onAuthStateChanged(function(u) {
-            setAuthUser(u || null);
-            if (u && u.email) {
-                var allowed = window.__ALLOWED_USERS || {};
-                var dn = allowed[u.email.toLowerCase()];
-                if (dn) {
-                    try { localStorage.setItem('myName', dn); } catch(e) {}
-                    setMyIdentity(dn);
-                    setShowUserPicker(false);
-                    if (window._fcmInit) window._fcmInit(dn);
-                } else {
-                    // email logado não está na allowlist — desloga
-                    try { auth.signOut(); } catch(e) {}
-                    toast('Email sem permissão. Saindo.');
-                }
+        var authService = window.__auth;
+        if (!authService) { setAuthUser(null); return; }
+
+        var unsub = authService.observeSession(function(session) {
+            setAuthUser(session.user || null);
+
+            if (session.user && session.identity) {
+                var dn = session.identity;
+                try { localStorage.setItem('myName', dn); } catch(e) {}
+                setMyIdentity(dn);
+                setShowUserPicker(false);
+                if (window._fcmInit) window._fcmInit(dn);
+            } else if (session.user && !session.allowed) {
+                authService.signOut().catch(function() {});
+                toast('Email sem permissão. Saindo.');
             }
         });
+
         return function() { try { unsub(); } catch(e) {} };
     }, []);
 
