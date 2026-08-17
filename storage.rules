@@ -5,8 +5,8 @@ service firebase.storage {
   match /b/{bucket}/o {
     match /{allPaths=**} {
       allow read, write: if request.auth != null
-        && (request.auth.token.email == 'victor@example.com'
-            || request.auth.token.email == 'partner@example.com')
+        && (request.auth.token.email == 'user1@example.com'
+            || request.auth.token.email == 'user2@example.com')
         && (request.resource == null || request.resource.size < 10 * 1024 * 1024);
     }
   }
