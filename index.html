@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0d0408">
+<title>Nós Dois</title>
+<link rel="stylesheet" href="/app.css">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="apple-touch-icon" href="/icon.svg">
+<link rel="dns-prefetch" href="https://unpkg.com">
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://unpkg.com/@fontsource/nunito@5.0.18/files/nunito-latin-400-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://unpkg.com/@fontsource/nunito@5.0.18/files/nunito-latin-700-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="https://unpkg.com/@fontsource/cormorant-garamond@5.0.27/files/cormorant-garamond-latin-400-italic.woff2">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js"></script>
+
+<script>
+// ⚠️ CONFIGURAÇÃO DE ACESSO — edite os 2 emails abaixo
+// Estes são os ÚNICOS emails que poderão fazer login.
+// O valor à direita é o "myName" que aparece no app (use lowercase).
+window.__ALLOWED_USERS = {
+  'user1@example.com': 'user1',
+  'user2@example.com':  'user2'
+};
+</script>
+<script>
+(function(){try{var cfg={apiKey:"YOUR_FIREBASE_API_KEY",authDomain:"YOUR_PROJECT.firebaseapp.com",databaseURL:"https://YOUR_PROJECT-default-rtdb.firebaseio.com",projectId:"YOUR_PROJECT",storageBucket:"YOUR_PROJECT.firebasestorage.app",messagingSenderId:"YOUR_MESSAGING_SENDER_ID",appId:"YOUR_FIREBASE_APP_ID"};firebase.initializeApp(cfg);var db=firebase.database();var st=firebase.storage();var auth=firebase.auth();try{auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);}catch(e){}
+var _fcmMsg=null;
+try{_fcmMsg=firebase.messaging();}catch(e){}
+window.__fcm={
+  vapid:'YOUR_PUBLIC_VAPID_KEY',
+  msg:_fcmMsg,
+  getToken:function(cb){
+    if(!_fcmMsg){cb(null);return;}
+    _fcmMsg.getToken({vapidKey:'YOUR_PUBLIC_VAPID_KEY'}).then(function(t){cb(t||null);}).catch(function(){cb(null);});
+  },
+  saveToken:function(token,name){
+    if(!token||!name)return;
+    var upd={};
+    upd['fcm_tokens/'+name.toLowerCase()]=token;
+    try{db.ref().update(upd);}catch(e){}
+  }
+};
+window.__fb={db:db,auth:auth,ref:function(d,p){return d.ref(p);},onValue:function(r,cb){var h=function(s){cb(s);};r.on("value",h);return function(){r.off("value",h);};  },set:function(r,v){return r.set(v);},push:function(r,v){return r.push(v);},remove:function(r){return r.remove();},update:function(r,v){return r.update(v);},get:function(r){return r.once("value");},
+upload:function(path,dataUrl,onDone,onErr){try{var ref=st.ref(path);var i=dataUrl.indexOf(",");var mime=dataUrl.substring(5,dataUrl.indexOf(";"));var b64=dataUrl.substring(i+1);ref.putString(b64,"base64",{contentType:mime}).then(function(snap){snap.ref.getDownloadURL().then(function(url){onDone(url);}).catch(onErr);}).catch(onErr);}catch(e){onErr(e);}}}; }catch(e){console.error("[fb]",e);}  })();
+</script>
+<script>
+(function(){
+// Escala adaptativa — normaliza o layout para qualquer largura de tela
+var vw = window.innerWidth || document.documentElement.clientWidth || 390;
+var ref = 390; // largura base de referência
+var ratio = vw / ref;
+// Clamp: mínimo 80%, máximo 110% da escala base
+var clampedRatio = Math.min(1.1, Math.max(0.8, ratio));
+document.documentElement.style.fontSize = (16 * clampedRatio) + "px";
+var t=localStorage.getItem("theme")||"dark";document.documentElement.setAttribute("data-theme",t);var ac=localStorage.getItem("accentColor");if(ac){document.documentElement.style.setProperty("--rose",ac);document.documentElement.style.setProperty("--rose2",ac+"cc");}document.documentElement.style.setProperty("--sat","env(safe-area-inset-top,0px)");document.documentElement.style.setProperty("--sab","env(safe-area-inset-bottom,0px)");})();
+</script>
+<script>
+(function(){
+// Detecta ausência de safe-area (MIUI/Android sem gestural reporting)
+setTimeout(function() {
+  var sat = getComputedStyle(document.documentElement).getPropertyValue("--sat").trim();
+  var sab = getComputedStyle(document.documentElement).getPropertyValue("--sab").trim();
+  // Status bar top
+  if (sat === "0px" || sat === "") {
+    document.documentElement.style.setProperty("--sat", "24px");
+  }
+  // Nav bar bottom
+  if (sab === "0px" && window.screen && window.screen.height > 700) {
+    var navH = window.screen.height - window.screen.availHeight;
+    if (navH > 20) {
+      document.documentElement.style.setProperty("--sab", Math.min(navH, 24) + "px");
+    } else {
+      document.documentElement.style.setProperty("--sab", "16px");
+    }
+  }
+}, 100);
+})();
+</script>
+</head>
+<body>
+<div id="splash"><div id="sp-photo" style="width:88px;height:88px;border-radius:50%;overflow:hidden;margin-bottom:14px;border:2.5px solid rgba(255,255,255,.18);display:none;flex-shrink:0;background:rgba(255,255,255,.06);"></div><div class="sp-h" id="sp-heart">🤍</div><div class="sp-t">nós dois</div><div class="sp-n" id="sp-names">Pessoa 1 &amp; Pessoa 2</div><div class="sp-load">carregando</div><div class="sp-dots"><div class="sp-dot"></div><div class="sp-dot"></div><div class="sp-dot"></div></div></div>
+<script>
+(function(){try{var s=localStorage.getItem("nd2_settings");if(s){var d=JSON.parse(s);if(d&&d.myName&&d.partnerName){document.getElementById("sp-names").textContent=d.myName+" & "+d.partnerName;}if(d&&d.couplePhoto){var ph=document.getElementById("sp-photo");var img=document.createElement("img");img.src=d.couplePhoto;img.style.cssText="width:100%;height:100%;object-fit:cover;";ph.appendChild(img);ph.style.display="flex";document.getElementById("sp-heart").style.display="none";}}}catch(e){}})();
+</script>
+<div id="landscape-block">
+  <div style="font-size:3rem">📱</div>
+  <div style="font-size:1.1rem;font-weight:700;font-family:'Cormorant Garamond',serif;font-style:italic">Gire o celular</div>
+  <div style="font-size:.82rem;opacity:.6;line-height:1.6">O Nós Dois funciona<br>só na vertical 💕</div>
+</div>
+<div id="root"></div>
+<div id="undo-bar" style="position:fixed;bottom:calc(56px + var(--sab) + 8px);left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:8px 16px;border-radius:20px;font-size:.75rem;white-space:nowrap;z-index:9998;opacity:0;transition:opacity .25s;pointer-events:none;"></div>
+<div class="toast" id="toast"><span id="toast-msg"></span><button id="toast-undo" style="display:none;margin-left:10px;background:none;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:6px;padding:2px 8px;font-size:.7rem;cursor:pointer;font-family:inherit;">Desfazer</button></div>
+<script>
+setTimeout(function(){var s=document.getElementById("splash");if(s&&s.style.display!=="none"){s.classList.add("hide");setTimeout(function(){s.style.display="none";},500);}},3000);
+</script>
+<script src="/capacitor-bridge.js" defer></script>
+<script src="/app.js" defer></script>
+</body>
+</html>

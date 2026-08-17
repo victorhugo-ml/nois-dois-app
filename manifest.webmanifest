@@ -1,0 +1,23 @@
+{
+  "name": "Nós Dois",
+  "short_name": "Nós Dois",
+  "description": "App de casal — agenda, gastos, momentos e mais.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d0408",
+  "theme_color": "#0d0408",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": ["lifestyle", "social"],
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Agenda",  "short_name": "Agenda",  "url": "/?tab=agenda", "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }] },
+    { "name": "Gastos",  "short_name": "Gastos",  "url": "/?tab=gastos", "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }] },
+    { "name": "Diário",  "short_name": "Diário",  "url": "/?tab=nois",   "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }] }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "rules": {
+    ".read":  "auth != null && (auth.token.email == 'user1@example.com' || auth.token.email == 'user2@example.com')",
+    ".write": "auth != null && (auth.token.email == 'user1@example.com' || auth.token.email == 'user2@example.com')",
+
+    "fcm_tokens": {
+      "$name": {
+        ".validate": "newData.isString() && newData.val().length < 500"
+      }
+    },
+
+    "notif_triggers": {
+      "$name": {
+        ".validate": "newData.hasChildren(['type','ts'])"
+      }
+    },
+
+    "presence": {
+      "$name": {
+        ".validate": "newData.hasChildren(['online','ts'])"
+      }
+    },
+
+    "_trash": {
+      "$type": {
+        "$id": {
+          ".validate": "newData.hasChild('_deletedAt') || !newData.exists()"
+        }
+      }
+    },
+
+    "settings":  { ".validate": "newData.hasChildren() || !newData.exists()" },
+    "events":    { "$id": { ".validate": "newData.hasChildren(['name']) || !newData.exists()" } },
+    "gastos":    { "$id": { ".validate": "newData.hasChildren(['val']) || !newData.exists()" } },
+    "compras":   { "$id": { ".validate": "newData.hasChildren(['name']) || !newData.exists()" } }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "nos-dois",
+  "version": "1.0.0",
+  "private": true,
+  "description": "App de casal — Capacitor wrapper",
+  "scripts": {
+    "build:web": "node scripts/build-capacitor.mjs",
+    "cap:add":   "npm run build:web && npx cap add android",
+    "cap:sync":  "npm run build:web && npx cap sync android",
+    "cap:open":  "npx cap open android",
+    "android":   "npm run cap:sync && npm run cap:open"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2"
+  },
+  "dependencies": {
+    "@capacitor/core":          "^6.1.2",
+    "@capacitor/android":       "^6.1.2",
+    "@capacitor/app":           "^6.0.1",
+    "@capacitor/camera":        "^6.1.0",
+    "@capacitor/filesystem":    "^6.0.2",
+    "@capacitor/haptics":       "^6.0.1",
+    "@capacitor/keyboard":      "^6.0.2",
+    "@capacitor/local-notifications": "^6.1.1",
+    "@capacitor/push-notifications": "^6.0.2",
+    "@capacitor/share":         "^6.0.3",
+    "@capacitor/splash-screen": "^6.0.2",
+    "@capacitor/status-bar":    "^6.0.1",
+    "@capgo/capacitor-native-biometric": "^7.0.10"
+  }
+}

@@ -1,0 +1,52 @@
+node_modules/
+www/
+android/
+deploy/
+.firebase/
+.claude/
+"Android Studio/"
+*.log
+.DS_Store
+.vscode/
+.idea/
+local.properties
+*.keystore
+package-lock.json
+
+# Local/private configuration
+.env
+.env.*
+!.env.example
+service-account*.json
+firebase-adminsdk*.json
+*.keystore
+*.jks
+google-services.json
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Private/user content - NEVER publish
+.firebase/
+firebase-export*/
+firebase-backup*/
+backup*.json
+export*.json
+*.sqlite
+*.sqlite3
+*.db
+private/
+private-data/
+user-data/
+uploads/
+photos/
+gallery-export/
+chat-export/
+diary-export/
+screenshots/private/
+release.keystore
+*.keystore
+*.jks
+google-services.json
