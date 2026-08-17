@@ -4,6 +4,9 @@
   "private": true,
   "description": "App de casal — Capacitor wrapper",
   "scripts": {
+    "check":     "node --check app.js && node --check services/firebase.js && node --check services/auth.js && node --check scripts/build-capacitor.mjs",
+    "test":      "node tests/auth-service.test.js && node tests/capacitor-bundle.test.js",
+    "ci":        "node --check app.js && node --check services/firebase.js && node --check services/auth.js && node --check scripts/build-capacitor.mjs && node tests/auth-service.test.js && node tests/capacitor-bundle.test.js",
     "build:web": "node scripts/build-capacitor.mjs",
     "cap:add":   "npm run build:web && npx cap add android",
     "cap:sync":  "npm run build:web && npx cap sync android",
