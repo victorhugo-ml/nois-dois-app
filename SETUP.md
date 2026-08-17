@@ -125,6 +125,11 @@ A:\Nois Dois\
 ├── manifest.webmanifest     ← PWA
 ├── firebase-messaging-sw.js ← service worker (PWA + FCM)
 ├── icon.svg                 ← ícone do app
+├── config/
+│   └── public-config.js     ← configuração pública e allowlist fictícia
+├── services/
+│   ├── firebase.js          ← inicialização e adaptadores Firebase
+│   └── auth.js              ← autenticação e sessão
 ├── database.rules.json      ← regras do Realtime Database
 ├── storage.rules            ← regras do Storage
 ├── firebase.json            ← config Firebase
@@ -147,7 +152,7 @@ A:\Nois Dois\
 
 ### O que sobe no Netlify
 
-Apenas: `index.html`, `app.js`, `app.css`, `capacitor-bridge.js`, `manifest.webmanifest`, `firebase-messaging-sw.js`, `icon.svg`.
+Apenas: `index.html`, `app.js`, `app.css`, `capacitor-bridge.js`, `manifest.webmanifest`, `firebase-messaging-sw.js`, `icon.svg`, `config/public-config.js`, `services/firebase.js` e `services/auth.js`.
 Você pode adicionar um `.netlifyignore`:
 
 ```
