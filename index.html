@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -25,36 +25,8 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js"></script>
 
-<script>
-// ⚠️ CONFIGURAÇÃO DE ACESSO — edite os 2 emails abaixo
-// Estes são os ÚNICOS emails que poderão fazer login.
-// O valor à direita é o "myName" que aparece no app (use lowercase).
-window.__ALLOWED_USERS = {
-  'user1@example.com': 'user1',
-  'user2@example.com':  'user2'
-};
-</script>
-<script>
-(function(){try{var cfg={apiKey:"YOUR_FIREBASE_API_KEY",authDomain:"YOUR_PROJECT.firebaseapp.com",databaseURL:"https://YOUR_PROJECT-default-rtdb.firebaseio.com",projectId:"YOUR_PROJECT",storageBucket:"YOUR_PROJECT.firebasestorage.app",messagingSenderId:"YOUR_MESSAGING_SENDER_ID",appId:"YOUR_FIREBASE_APP_ID"};firebase.initializeApp(cfg);var db=firebase.database();var st=firebase.storage();var auth=firebase.auth();try{auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);}catch(e){}
-var _fcmMsg=null;
-try{_fcmMsg=firebase.messaging();}catch(e){}
-window.__fcm={
-  vapid:'YOUR_PUBLIC_VAPID_KEY',
-  msg:_fcmMsg,
-  getToken:function(cb){
-    if(!_fcmMsg){cb(null);return;}
-    _fcmMsg.getToken({vapidKey:'YOUR_PUBLIC_VAPID_KEY'}).then(function(t){cb(t||null);}).catch(function(){cb(null);});
-  },
-  saveToken:function(token,name){
-    if(!token||!name)return;
-    var upd={};
-    upd['fcm_tokens/'+name.toLowerCase()]=token;
-    try{db.ref().update(upd);}catch(e){}
-  }
-};
-window.__fb={db:db,auth:auth,ref:function(d,p){return d.ref(p);},onValue:function(r,cb){var h=function(s){cb(s);};r.on("value",h);return function(){r.off("value",h);};  },set:function(r,v){return r.set(v);},push:function(r,v){return r.push(v);},remove:function(r){return r.remove();},update:function(r,v){return r.update(v);},get:function(r){return r.once("value");},
-upload:function(path,dataUrl,onDone,onErr){try{var ref=st.ref(path);var i=dataUrl.indexOf(",");var mime=dataUrl.substring(5,dataUrl.indexOf(";"));var b64=dataUrl.substring(i+1);ref.putString(b64,"base64",{contentType:mime}).then(function(snap){snap.ref.getDownloadURL().then(function(url){onDone(url);}).catch(onErr);}).catch(onErr);}catch(e){onErr(e);}}}; }catch(e){console.error("[fb]",e);}  })();
-</script>
+<script src="/config/public-config.js"></script>
+<script src="/services/firebase.js"></script>
 <script>
 (function(){
 // Escala adaptativa — normaliza o layout para qualquer largura de tela
@@ -109,3 +81,4 @@ setTimeout(function(){var s=document.getElementById("splash");if(s&&s.style.disp
 <script src="/app.js" defer></script>
 </body>
 </html>
+
