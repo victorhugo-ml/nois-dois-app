@@ -2,31 +2,52 @@
 
 [![CI](https://github.com/victorhugo-ml/nois-dois-app/actions/workflows/ci.yml/badge.svg)](https://github.com/victorhugo-ml/nois-dois-app/actions/workflows/ci.yml)
 
-Aplicação pessoal multiplataforma para organização compartilhada de rotina, finanças, metas, memórias e eventos.
+Aplicação multiplataforma para organização compartilhada de rotina, finanças, metas, memórias e eventos. O projeto começou como uma aplicação web e evoluiu para uma experiência instalável via **PWA** e **Android/Capacitor**, com autenticação, sincronização em tempo real, notificações e recursos nativos.
 
-O projeto começou como uma aplicação web e evoluiu para uma experiência instalável via **PWA** e **Android/Capacitor**, com autenticação, sincronização em tempo real, notificações e recursos nativos.
+> Este repositório é uma versão pública e sanitizada para portfólio. As telas abaixo usam somente dados fictícios.
+
+## Visão do produto
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="docs/screenshots/inicio.png" width="240" alt="Tela inicial do Nós Dois"><br>
+      <sub><b>Início</b> — resumo do casal e próximos eventos</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/agenda.png" width="240" alt="Agenda compartilhada"><br>
+      <sub><b>Agenda</b> — calendário e compromissos compartilhados</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/gastos.png" width="240" alt="Painel de gastos"><br>
+      <sub><b>Gastos</b> — orçamento, divisão e acompanhamento mensal</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/diario.png" width="240" alt="Diário do casal"><br>
+      <sub><b>Memórias</b> — diário e registros do casal</sub>
+    </td>
+  </tr>
+</table>
 
 ## Principais funcionalidades
 
 - agenda e lembretes compartilhados;
-- registro e recorrência de gastos;
+- registro, recorrência e divisão de gastos;
 - metas e acompanhamento de progresso;
-- diário, bilhetes e galeria;
-- autenticação com Firebase Authentication;
-- sincronização com Firebase Realtime Database;
-- uploads com Firebase Storage;
+- diário, bilhetes, galeria e lista de compras;
+- autenticação e sincronização em tempo real;
 - notificações web e push nativo;
-- Cloud Functions para rotinas automáticas;
-- PWA com service worker e cache offline;
-- integração Android via Capacitor;
-- câmera, haptics, notificações e biometria no app nativo.
+- PWA com cache offline;
+- câmera, biometria, haptics e compartilhamento no Android.
 
 ## Stack
 
-**Frontend:** JavaScript, React no browser, HTML e CSS  
-**Backend/serviços:** Firebase Authentication, Realtime Database, Storage, Cloud Messaging e Cloud Functions  
-**Mobile:** Capacitor + Android  
-**Runtime das funções:** Node.js 20
+| Camada | Tecnologias |
+| --- | --- |
+| Frontend | JavaScript, React no browser, HTML e CSS |
+| Backend e serviços | Firebase Authentication, Realtime Database, Storage, Cloud Messaging e Cloud Functions |
+| Mobile | Capacitor 6 e Android |
+| Qualidade | Node.js, testes com mocks e GitHub Actions |
 
 ## Arquitetura resumida
 
@@ -47,79 +68,67 @@ Firebase Auth  Realtime DB   Firebase Storage
         Push / rotinas automáticas
 ```
 
-O frontend mantém a experiência e o estado de interface, enquanto o Firebase fornece autenticação, persistência e sincronização. As Cloud Functions executam tarefas que não devem depender do dispositivo do usuário, como notificações e rotinas recorrentes.
+O frontend mantém a experiência e o estado de interface. O Firebase fornece autenticação, persistência e sincronização; as Cloud Functions executam notificações e rotinas que não devem depender do dispositivo. Mais detalhes estão em [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
+## Refatoração incremental
 
-## Privacidade da versão pública
+O produto foi construído rapidamente e parte significativa da interface ainda está concentrada em `app.js`. Em vez de uma reescrita total, a evolução ocorre em PRs pequenos, preservando o comportamento existente.
 
-Este repositório contém **somente código e documentação sanitizados**. Mensagens, fotos, diário, dados financeiros, backups e demais conteúdos pessoais da aplicação privada não estão incluídos. Veja [`PRIVACY.md`](PRIVACY.md).
+Já concluído:
 
-## Segurança e configuração
+- bootstrap do Firebase extraído para `services/firebase.js`;
+- configuração pública centralizada em `config/public-config.js`;
+- autenticação e sessão extraídas para `services/auth.js`;
+- teste do serviço de autenticação com mocks, sem acesso ao Firebase real;
+- validação automatizada de sintaxe, testes e build no GitHub Actions.
 
-Esta versão do repositório foi preparada para publicação e **não contém os identificadores pessoais nem a configuração do projeto Firebase original**.
+Próximas fronteiras planejadas:
 
-Antes de executar, substitua os valores `YOUR_*` encontrados em:
+1. acesso ao Realtime Database por domínio;
+2. notificações e FCM;
+3. Storage e uploads;
+4. funcionalidades estáveis do frontend.
 
-- `index.html`
-- `firebase-messaging-sw.js`
-- `.firebaserc`
-- `database.rules.json`
-- `storage.rules`
+## Executando localmente
 
-Nunca publique senhas, credenciais administrativas ou service-account keys.
-
-> A configuração web do Firebase não funciona como uma senha secreta, mas regras de acesso e credenciais administrativas devem continuar protegidas e revisadas antes de qualquer deploy público.
-
-## Executando
-
-Instale as dependências:
+Instale as dependências e valide o projeto:
 
 ```bash
 npm install
-cd functions && npm install
+npm run ci
 ```
 
-Para preparar/sincronizar o projeto Android:
+Para instalar as dependências das Cloud Functions:
+
+```bash
+cd functions
+npm install
+```
+
+Para preparar e abrir o projeto Android:
 
 ```bash
 npm run cap:sync
-```
-
-Para abrir o projeto Android:
-
-```bash
 npm run cap:open
 ```
 
-As instruções adicionais estão em `SETUP.md` e `CAPACITOR-SETUP.md`.
+Consulte também [`SETUP.md`](SETUP.md) e [`CAPACITOR-SETUP.md`](CAPACITOR-SETUP.md).
 
-## Decisões de engenharia
+## Privacidade e segurança
 
-O projeto concentra grande parte da interface em `app.js`. Isso funcionou durante a prototipação e evolução rápida do produto, mas a próxima etapa planejada é modularizar o frontend em componentes e serviços menores, separando responsabilidades como:
+O repositório não contém mensagens, fotos, diário, dados financeiros, backups, credenciais reais nem a configuração do projeto Firebase privado. Antes de executar, substitua os valores `YOUR_*` em:
 
-- autenticação;
-- acesso ao Firebase;
-- agenda e eventos;
-- finanças;
-- notificações;
-- galeria;
-- configurações;
-- integração nativa.
+- `config/public-config.js`;
+- `firebase-messaging-sw.js`;
+- `.firebaserc`;
+- `database.rules.json`;
+- `storage.rules`.
 
-Essa refatoração deve melhorar testabilidade, manutenção e legibilidade sem alterar o comportamento do produto.
+Nunca publique senhas, credenciais administrativas ou chaves de service account. Consulte [`PRIVACY.md`](PRIVACY.md), [`SECURITY.md`](SECURITY.md) e [`docs/DEMO_DATA.md`](docs/DEMO_DATA.md).
 
 ## Contexto do projeto
 
-Projeto pessoal desenvolvido de forma iterativa com forte uso de ferramentas de IA para acelerar prototipação e implementação. O foco atual é consolidar o entendimento técnico da arquitetura, revisar segurança e evoluir a base de código para uma estrutura mais modular.
-
-## Próximos passos
-
-- modularizar o frontend;
-- adicionar testes automatizados para regras e funções críticas;
-- separar configuração por ambiente;
-- revisar regras do Firebase com emuladores;
-- melhorar documentação técnica;
-- configurar CI para validações básicas.
+Projeto pessoal desenvolvido de forma iterativa, com uso de ferramentas de IA para acelerar prototipação e implementação. O trabalho atual prioriza entendimento técnico, revisão de segurança, testes e redução gradual do acoplamento da base de código.
 
 ## Licença
 
