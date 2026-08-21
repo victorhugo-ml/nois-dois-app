@@ -46,7 +46,7 @@ Aplicação multiplataforma para organização compartilhada de rotina, finança
 | --- | --- |
 | Frontend | JavaScript, React no browser, HTML e CSS |
 | Backend e serviços | Firebase Authentication, Realtime Database, Storage, Cloud Messaging e Cloud Functions |
-| Mobile | Capacitor 6 e Android |
+| Mobile | Capacitor 8 e Android |
 | Qualidade | Node.js, testes com mocks e GitHub Actions |
 
 ## Arquitetura resumida
@@ -94,8 +94,9 @@ Próximas fronteiras planejadas:
 Instale as dependências e valide o projeto:
 
 ```bash
-npm install
+npm ci
 npm run ci
+npm run audit:deps
 ```
 
 Para instalar as dependências das Cloud Functions:

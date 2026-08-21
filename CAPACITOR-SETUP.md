@@ -11,23 +11,23 @@ Tempo total: 1-2 horas na primeira vez. Depois é só `npm run cap:sync` e clica
 Se ainda não tem:
 1. https://nodejs.org → baixa o **LTS** (botão verde)
 2. Instala (Next, Next, Next)
-3. Confirma no Prompt de Comando: `node --version` → deve mostrar `v20.x.x` ou superior
+3. Confirma no Prompt de Comando: `node --version` → deve mostrar `v22.x.x` ou superior
 
-### 1.2 Java JDK 17
+### 1.2 Java JDK 21
 
-Capacitor 6 exige Java 17.
+O projeto usa Capacitor 8. Para o Android, use Java 21.
 
-1. https://adoptium.net/ → baixa **Temurin 17 LTS** pro Windows (`.msi`)
+1. https://adoptium.net/ → baixa **Temurin 21 LTS** pro Windows (`.msi`)
 2. Instala marcando "Set JAVA_HOME" e "Add to PATH"
-3. Confirma: `java -version` → deve mostrar `17.x.x`
+3. Confirma: `java -version` → deve mostrar `21.x.x`
 
 ### 1.3 Android Studio
 
-1. https://developer.android.com/studio → baixa
+1. https://developer.android.com/studio → baixa o **Android Studio Otter (2025.2.1) ou mais recente**
 2. Instala com **Standard installation** (~3GB)
 3. Abre o Android Studio. No primeiro boot ele baixa o Android SDK (~2GB) — deixa baixar tudo
 4. Quando carregar, vai em **More Actions → SDK Manager**
-5. Aba **SDK Platforms** → marca **Android 14 (API 34)**
+5. Aba **SDK Platforms** → marca **Android 16 (API 36)**
 6. Aba **SDK Tools** → confirma que estes estão instalados:
    - Android SDK Build-Tools
    - Android SDK Command-line Tools
@@ -40,7 +40,7 @@ Capacitor 6 exige Java 17.
 Procura "**Editar variáveis de ambiente**" no menu Iniciar → **Variáveis de Ambiente** → na seção **Variáveis do usuário**:
 
 - Cria `ANDROID_HOME` apontando pra `C:\Users\<você>\AppData\Local\Android\Sdk`
-- Cria `JAVA_HOME` apontando pra onde o JDK foi instalado (ex: `C:\Program Files\Eclipse Adoptium\jdk-17.0.x-hotspot`)
+- Cria `JAVA_HOME` apontando pra onde o JDK foi instalado (ex: `C:\Program Files\Eclipse Adoptium\jdk-21.x.x-hotspot`)
 - Edita a variável `Path` e adiciona:
   - `%ANDROID_HOME%\platform-tools`
   - `%ANDROID_HOME%\cmdline-tools\latest\bin`
@@ -85,7 +85,7 @@ cd "A:/Nois Dois"
 ### 3.1 Instalar as dependências
 
 ```bash
-npm install
+npm ci
 ```
 
 (Demora uns 2-5 minutos na primeira vez)
@@ -232,6 +232,10 @@ Pra version do APK pra distribuir, gera novo APK assinado (passo 4.4).
 3. Mata o app (swipe nos recentes)
 4. Reabre → aparece prompt de biometria automaticamente
 
+> Ao atualizar uma instalação criada com a versão antiga do plugin, entre uma vez
+> com email e senha e ative a biometria novamente. O app não reutiliza credenciais
+> antigas que não estejam protegidas criptograficamente.
+
 ### Câmera nativa
 - Vai em **Galeria → 📸 +** → vai aparecer um diálogo "Tirar foto agora?" → câmera nativa abre
 
@@ -252,12 +256,12 @@ Pra version do APK pra distribuir, gera novo APK assinado (passo 4.4).
 |---|---|
 | `JAVA_HOME is not set` | Configura variável de ambiente (passo 1.4) |
 | `SDK location not found` | Cria arquivo `android/local.properties` com `sdk.dir=C:\\Users\\<você>\\AppData\\Local\\Android\\Sdk` |
-| Gradle sync falha com erro de versão Java | Confirma que JDK é 17, não 21 ou 11 |
+| Gradle sync falha com erro de versão Java | Confirma que o JDK 21 está ativo |
 | `google-services.json missing` | Refazer passo 3.3 |
 | Push não chega | Confirma que o `google-services.json` é do mesmo `package_name` (`com.nosdois.app`) |
 | Biometria não pede | Confirma que o celular tem digital cadastrada nas configs do Android |
 | App abre branco | Confirma que `npm run cap:sync` foi executado depois das mudanças |
-| Erro "duplicate class" | Em `android/build.gradle` aumenta `minSdkVersion` pra 23 ou superior |
+| Erro "duplicate class" | Confirma que o projeto gerado usa `minSdkVersion` 24 ou superior |
 
 ---
 
