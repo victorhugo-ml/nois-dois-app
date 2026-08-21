@@ -11,7 +11,6 @@ deploy/
 .idea/
 local.properties
 *.keystore
-package-lock.json
 
 # Local/private configuration
 .env

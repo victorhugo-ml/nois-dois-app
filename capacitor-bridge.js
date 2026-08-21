@@ -181,26 +181,37 @@
   }
 
   // ────────── Biometria ────────────────────────────────────────────
-  // Plugin: @capgo/capacitor-native-biometric (mantido)
-  // Salvamos credenciais (email + senha) no Keystore Android pra reusar no auto-login.
+  // Plugin: @capgo/capacitor-native-biometric.
+  // As credenciais ficam protegidas por biometria no Keychain/Keystore. O valor 1
+  // corresponde a AccessControl.BIOMETRY_CURRENT_SET e invalida as credenciais
+  // quando o conjunto de biometrias cadastradas no dispositivo muda.
   var Bio = P.NativeBiometric;
   var BIO_SERVER = 'com.nosdois.app';
+  var BIO_ACCESS_CONTROL_CURRENT_SET = 1;
 
   if (Bio) {
     window.__native.biometricAvailable = function() {
       return Bio.isAvailable().then(function(r) { return !!(r && r.isAvailable); }).catch(function() { return false; });
     };
     window.__native.biometricSaveCredentials = function(email, password) {
-      return Bio.setCredentials({ username: email, password: password, server: BIO_SERVER });
+      return Bio.setCredentials({
+        username: email,
+        password: password,
+        server: BIO_SERVER,
+        accessControl: BIO_ACCESS_CONTROL_CURRENT_SET,
+        authValidityDuration: 0,
+        title: 'Proteger acesso ao Nós Dois',
+        negativeButtonText: 'Cancelar'
+      });
     };
     window.__native.biometricGetCredentials = function(reason) {
-      return Bio.verifyIdentity({
+      return Bio.getSecureCredentials({
+        server: BIO_SERVER,
         reason: reason || 'Entrar no Nós Dois',
         title: 'Nós Dois 💕',
         subtitle: 'Toca o sensor pra entrar',
-        description: ''
-      }).then(function() {
-        return Bio.getCredentials({ server: BIO_SERVER });
+        description: '',
+        negativeButtonText: 'Cancelar'
       });
     };
     window.__native.biometricDeleteCredentials = function() {

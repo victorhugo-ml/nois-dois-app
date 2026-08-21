@@ -6908,7 +6908,16 @@ function LoginScreen(props) {
                 return loginWithCreds(c.username.toLowerCase(), c.password);
             }
         }).catch(function(e2) {
-            // Cancelado ou erro — silencioso, mantém o form aberto
+            var code = e2 && (e2.code != null ? e2.code : e2.errorCode);
+            if (String(code) === '21') {
+                // Credenciais antigas não tinham proteção criptográfica vinculada à biometria.
+                // Exige login por senha e uma nova ativação, sem recorrer à leitura insegura.
+                localStorage.removeItem('bio_enabled');
+                setBioOk(false);
+                window.__native.biometricDeleteCredentials();
+                setErr('Por segurança, ative a biometria novamente após entrar com sua senha.');
+            }
+            // Cancelamentos e demais erros mantêm o formulário aberto.
         });
     }
 

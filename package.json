@@ -3,32 +3,41 @@
   "version": "1.0.0",
   "private": true,
   "description": "App de casal — Capacitor wrapper",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "check":     "node --check app.js && node --check services/firebase.js && node --check services/auth.js && node --check scripts/build-capacitor.mjs",
-    "test":      "node tests/auth-service.test.js && node tests/capacitor-bundle.test.js",
-    "ci":        "node --check app.js && node --check services/firebase.js && node --check services/auth.js && node --check scripts/build-capacitor.mjs && node tests/auth-service.test.js && node tests/capacitor-bundle.test.js",
+    "check": "node --check app.js && node --check capacitor-bridge.js && node --check services/firebase.js && node --check services/auth.js && node --check scripts/build-capacitor.mjs",
+    "test": "node tests/auth-service.test.js && node tests/capacitor-biometric.test.js && node tests/capacitor-bundle.test.js",
+    "ci": "node --check app.js && node --check capacitor-bridge.js && node --check services/firebase.js && node --check services/auth.js && node --check scripts/build-capacitor.mjs && node tests/auth-service.test.js && node tests/capacitor-biometric.test.js && node tests/capacitor-bundle.test.js",
+    "audit:deps": "npm audit --audit-level=moderate",
     "build:web": "node scripts/build-capacitor.mjs",
-    "cap:add":   "npm run build:web && npx cap add android",
-    "cap:sync":  "npm run build:web && npx cap sync android",
-    "cap:open":  "npx cap open android",
-    "android":   "npm run cap:sync && npm run cap:open"
+    "cap:add": "npm run build:web && npx cap add android",
+    "cap:sync": "npm run build:web && npx cap sync android",
+    "cap:open": "npx cap open android",
+    "android": "npm run cap:sync && npm run cap:open"
   },
   "devDependencies": {
-    "@capacitor/cli": "^6.1.2"
+    "@capacitor/cli": "^8.5.0"
+  },
+  "overrides": {
+    "xcode": {
+      "uuid": "^11.1.1"
+    }
   },
   "dependencies": {
-    "@capacitor/core":          "^6.1.2",
-    "@capacitor/android":       "^6.1.2",
-    "@capacitor/app":           "^6.0.1",
-    "@capacitor/camera":        "^6.1.0",
-    "@capacitor/filesystem":    "^6.0.2",
-    "@capacitor/haptics":       "^6.0.1",
-    "@capacitor/keyboard":      "^6.0.2",
-    "@capacitor/local-notifications": "^6.1.1",
-    "@capacitor/push-notifications": "^6.0.2",
-    "@capacitor/share":         "^6.0.3",
-    "@capacitor/splash-screen": "^6.0.2",
-    "@capacitor/status-bar":    "^6.0.1",
-    "@capgo/capacitor-native-biometric": "^7.0.10"
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/app": "^8.1.1",
+    "@capacitor/camera": "^8.2.3",
+    "@capacitor/core": "^8.5.0",
+    "@capacitor/filesystem": "^8.1.3",
+    "@capacitor/haptics": "^8.0.2",
+    "@capacitor/keyboard": "^8.0.5",
+    "@capacitor/local-notifications": "^8.3.1",
+    "@capacitor/push-notifications": "^8.1.2",
+    "@capacitor/share": "^8.0.1",
+    "@capacitor/splash-screen": "^8.0.2",
+    "@capacitor/status-bar": "^8.0.3",
+    "@capgo/capacitor-native-biometric": "^8.6.6"
   }
 }
