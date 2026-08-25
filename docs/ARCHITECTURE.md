@@ -1,5 +1,7 @@
 # Arquitetura atual
 
+Este documento descreve a estrutura técnica do repositório. O contexto de autoria e o papel central da IA generativa na implementação estão registrados no [`README.md`](../README.md).
+
 ## Objetivo da refatoração
 
 O projeto cresceu rapidamente durante a prototipação e concentrou muitas responsabilidades em poucos arquivos. A estratégia escolhida para o portfólio é **refatoração incremental**, mantendo o comportamento existente enquanto responsabilidades estáveis são extraídas para módulos menores.

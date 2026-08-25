@@ -2,9 +2,15 @@
 
 [![CI](https://github.com/victorhugo-ml/nois-dois-app/actions/workflows/ci.yml/badge.svg)](https://github.com/victorhugo-ml/nois-dois-app/actions/workflows/ci.yml)
 
-Aplicação multiplataforma para organização compartilhada de rotina, finanças, metas, memórias e eventos. O projeto começou como uma aplicação web e evoluiu para uma experiência instalável via **PWA** e **Android/Capacitor**, com autenticação, sincronização em tempo real, notificações e recursos nativos.
+Projeto pessoal que idealizei por hobby para mim e minha namorada organizarmos rotina, finanças, metas, memórias e eventos. A aplicação resultante funciona na web, como **PWA** e no **Android/Capacitor**, com autenticação, sincronização em tempo real, notificações e recursos nativos.
 
 > Este repositório é uma versão pública e sanitizada para portfólio. As telas abaixo usam somente dados fictícios.
+
+## Origem, autoria e uso de IA
+
+A maior parte da implementação original foi produzida por ferramentas de IA generativa em ciclos conduzidos por mim. Meu trabalho concentrou-se em definir o problema e os fluxos, priorizar funcionalidades, descrever comportamentos esperados, testar o aplicativo e avaliar e refinar os resultados.
+
+Ao preparar esta versão pública, também conduzi a sanitização dos dados, a organização da documentação, a inclusão de verificações automatizadas e a evolução incremental da base. Decidi publicar o projeto porque achei interessante documentar um experimento pessoal real e mostrar como coordeno, testo e avalio um processo assistido por IA - não para me apresentar como desenvolvedor frontend ou backend.
 
 ## Visão do produto
 
@@ -72,7 +78,7 @@ O frontend mantém a experiência e o estado de interface. O Firebase fornece au
 
 ## Refatoração incremental
 
-O produto foi construído rapidamente e parte significativa da interface ainda está concentrada em `app.js`. Em vez de uma reescrita total, a evolução ocorre em PRs pequenos, preservando o comportamento existente.
+A implementação foi gerada em iterações rápidas e parte significativa da interface ainda está concentrada em `app.js`. Ao preparar e manter a versão pública, optei por evoluí-la em PRs pequenos, testando o comportamento existente em vez de iniciar uma reescrita total.
 
 Já concluído:
 
@@ -127,9 +133,14 @@ O repositório não contém mensagens, fotos, diário, dados financeiros, backup
 
 Nunca publique senhas, credenciais administrativas ou chaves de service account. Consulte [`PRIVACY.md`](PRIVACY.md), [`SECURITY.md`](SECURITY.md) e [`docs/DEMO_DATA.md`](docs/DEMO_DATA.md).
 
-## Contexto do projeto
+## O que este repositório demonstra
 
-Projeto pessoal desenvolvido de forma iterativa, com uso de ferramentas de IA para acelerar prototipação e implementação. O trabalho atual prioriza entendimento técnico, revisão de segurança, testes e redução gradual do acoplamento da base de código.
+- definição de produto a partir de uma necessidade pessoal;
+- decomposição de funcionalidades e orientação iterativa de ferramentas de IA;
+- avaliação crítica de resultados e testes de comportamento;
+- atenção à privacidade, à segurança e à publicação responsável.
+
+A stack documentada acima descreve o funcionamento do projeto. Ela não é apresentada como comprovação de domínio autônomo meu sobre todas as tecnologias utilizadas.
 
 ## Licença
 
