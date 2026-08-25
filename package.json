@@ -2,7 +2,7 @@
   "name": "nos-dois",
   "version": "1.0.0",
   "private": true,
-  "description": "Projeto pessoal criado por hobby com implementação apoiada por IA generativa",
+  "description": "Projeto pessoal criado por hobby, com implementação produzida majoritariamente por IA generativa",
   "engines": {
     "node": ">=22"
   },

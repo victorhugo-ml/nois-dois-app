@@ -8,7 +8,7 @@ Projeto pessoal que idealizei por hobby para mim e minha namorada organizarmos r
 
 ## Origem, autoria e uso de IA
 
-A maior parte da implementação original foi produzida por ferramentas de IA generativa em ciclos conduzidos por mim. Meu trabalho concentrou-se em definir o problema e os fluxos, priorizar funcionalidades, descrever comportamentos esperados, testar o aplicativo e avaliar e refinar os resultados.
+A maior parte da implementação original foi produzida por ferramentas de IA generativa em ciclos conduzidos por mim. Meu trabalho concentrou-se em definir o problema e os fluxos, priorizar funcionalidades, descrever comportamentos esperados, testar o aplicativo, avaliar os resultados e solicitar refinamentos.
 
 Ao preparar esta versão pública, também conduzi a sanitização dos dados, a organização da documentação, a inclusão de verificações automatizadas e a evolução incremental da base. Decidi publicar o projeto porque achei interessante documentar um experimento pessoal real e mostrar como coordeno, testo e avalio um processo assistido por IA - não para me apresentar como desenvolvedor frontend ou backend.
 
