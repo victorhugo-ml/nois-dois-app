@@ -4,7 +4,7 @@
 
 Projeto pessoal que idealizei por hobby para mim e minha namorada organizarmos rotina, finanças, metas, memórias, eventos e localização compartilhada. A aplicação resultante funciona na web, como **PWA** e no **Android/Capacitor**, com autenticação, sincronização em tempo real, notificações e recursos nativos.
 
-> Este repositório é uma versão pública e sanitizada para portfólio. As telas abaixo usam somente dados fictícios.
+> Este repositório é uma versão pública e sanitizada para portfólio. As telas abaixo usam somente dados fictícios; as demonstrações de localização, metas, compras e galeria foram recriadas visualmente para não expor capturas do ambiente privado.
 
 ## Origem, autoria e uso de IA
 
@@ -31,6 +31,24 @@ Ao preparar esta versão pública, também conduzi a sanitização dos dados, a 
     <td align="center">
       <img src="docs/screenshots/diario.png" width="240" alt="Diário do casal"><br>
       <sub><b>Memórias</b> — diário e registros do casal</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="docs/screenshots/mapa.png" width="240" alt="Demonstração sanitizada do mapa compartilhado"><br>
+      <sub><b>Localização</b> — mapa, distância, status e lugares salvos</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/metas.png" width="240" alt="Painel de metas compartilhadas"><br>
+      <sub><b>Metas</b> — objetivos compartilhados e progresso</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/compras.png" width="240" alt="Lista de compras compartilhada"><br>
+      <sub><b>Compras</b> — lista sincronizada para o casal</sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/galeria.png" width="240" alt="Galeria com memórias fictícias"><br>
+      <sub><b>Galeria</b> — memórias e cápsula do tempo</sub>
     </td>
   </tr>
 </table>
