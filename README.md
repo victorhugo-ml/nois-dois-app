@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/victorhugo-ml/nois-dois-app/actions/workflows/ci.yml/badge.svg)](https://github.com/victorhugo-ml/nois-dois-app/actions/workflows/ci.yml)
 
-Projeto pessoal que idealizei por hobby para mim e minha namorada organizarmos rotina, finanças, metas, memórias e eventos. A aplicação resultante funciona na web, como **PWA** e no **Android/Capacitor**, com autenticação, sincronização em tempo real, notificações e recursos nativos.
+Projeto pessoal que idealizei por hobby para mim e minha namorada organizarmos rotina, finanças, metas, memórias, eventos e localização compartilhada. A aplicação resultante funciona na web, como **PWA** e no **Android/Capacitor**, com autenticação, sincronização em tempo real, notificações e recursos nativos.
 
 > Este repositório é uma versão pública e sanitizada para portfólio. As telas abaixo usam somente dados fictícios.
 
@@ -41,10 +41,17 @@ Ao preparar esta versão pública, também conduzi a sanitização dos dados, a 
 - registro, recorrência e divisão de gastos;
 - metas e acompanhamento de progresso;
 - diário, bilhetes, galeria e lista de compras;
+- localização compartilhada por GPS, com mapa ao vivo do casal;
+- rastreamento adaptativo em segundo plano, distância, status online/offline, bateria e histórico do dia;
+- busca de lugares, abertura de rotas e alertas de chegada ou saída em locais cadastrados;
 - autenticação e sincronização em tempo real;
 - notificações web e push nativo;
 - PWA com cache offline;
 - câmera, biometria, haptics e compartilhamento no Android.
+
+### Localização e privacidade
+
+O sistema completo de localização pertence à versão privada/original do aplicativo. Ele foi projetado para compartilhar a posição do casal com consentimento, inclusive em segundo plano no Android, e alimentar mapa, distância, rotas e notificações de chegada ou saída. Como localização é um dado especialmente sensível, a versão pública não inclui coordenadas, histórico real nem configurações privadas; a documentação descreve o comportamento do produto sem expor esses dados.
 
 ## Stack
 
