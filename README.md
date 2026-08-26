@@ -16,37 +16,37 @@ Ao preparar esta versão pública, também conduzi a sanitização dos dados, a 
 
 <table>
   <tr>
-    <td align="center">
+    <td align="center" width="25%">
       <img src="docs/screenshots/inicio.png" width="240" alt="Tela inicial do Nós Dois"><br>
       <sub><b>Início</b> — resumo do casal e próximos eventos</sub>
     </td>
-    <td align="center">
+    <td align="center" width="25%">
       <img src="docs/screenshots/agenda.png" width="240" alt="Agenda compartilhada"><br>
       <sub><b>Agenda</b> — calendário e compromissos compartilhados</sub>
     </td>
-    <td align="center">
+    <td align="center" width="25%">
       <img src="docs/screenshots/gastos.png" width="240" alt="Painel de gastos"><br>
       <sub><b>Gastos</b> — orçamento, divisão e acompanhamento mensal</sub>
     </td>
-    <td align="center">
+    <td align="center" width="25%">
       <img src="docs/screenshots/diario.png" width="240" alt="Diário do casal"><br>
       <sub><b>Memórias</b> — diário e registros do casal</sub>
     </td>
   </tr>
   <tr>
-    <td align="center">
+    <td align="center" width="25%">
       <img src="docs/screenshots/mapa.png" width="240" alt="Demonstração sanitizada do mapa compartilhado"><br>
       <sub><b>Localização</b> — mapa, distância, status e lugares salvos</sub>
     </td>
-    <td align="center">
+    <td align="center" width="25%">
       <img src="docs/screenshots/metas.png" width="240" alt="Painel de metas compartilhadas"><br>
       <sub><b>Metas</b> — objetivos compartilhados e progresso</sub>
     </td>
-    <td align="center">
+    <td align="center" width="25%">
       <img src="docs/screenshots/compras.png" width="240" alt="Lista de compras compartilhada"><br>
       <sub><b>Compras</b> — lista sincronizada para o casal</sub>
     </td>
-    <td align="center">
+    <td align="center" width="25%">
       <img src="docs/screenshots/galeria.png" width="240" alt="Galeria com memórias fictícias"><br>
       <sub><b>Galeria</b> — memórias e cápsula do tempo</sub>
     </td>
