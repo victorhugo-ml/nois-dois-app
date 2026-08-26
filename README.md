@@ -4,7 +4,7 @@
 
 Projeto pessoal que idealizei por hobby para mim e minha namorada organizarmos rotina, finanças, metas, memórias, eventos e localização compartilhada. A aplicação resultante funciona na web, como **PWA** e no **Android/Capacitor**, com autenticação, sincronização em tempo real, notificações e recursos nativos.
 
-> Este repositório é uma versão pública e sanitizada para portfólio. As telas abaixo usam somente dados fictícios; as demonstrações de localização, metas, compras e galeria foram recriadas visualmente para não expor capturas do ambiente privado.
+> Este repositório é uma versão pública e sanitizada para portfólio. As telas abaixo foram capturadas a partir da interface real do aplicativo em uma execução local isolada, usando somente dados fictícios e sem conexão com o ambiente privado.
 
 ## Origem, autoria e uso de IA
 
