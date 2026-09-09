@@ -12,7 +12,7 @@
 
 Na sua cópia PRIVADA de deploy, substitua `user1@example.com` e `user2@example.com` pelas contas autorizadas. Não faça isso no repositório público:
 
-- **`index.html`** linha ~25 (`window.__ALLOWED_USERS`) — o valor à direita é o nome de exibição, em lowercase (`'user1'`, `'user2'`)
+- **`config/public-config.js`** (`allowedUsers`) — o valor à direita é a identidade usada pelo aplicativo (`'user1'`, `'user2'`); o arquivo disponibiliza essa configuração em `window.__ALLOWED_USERS`
 - **`database.rules.json`** — 2 ocorrências
 - **`storage.rules`** — 2 ocorrências
 
@@ -53,12 +53,12 @@ No celular, ao abrir no Chrome, vai aparecer "Adicionar à tela inicial" — ins
 
 ## Etapa 3 — Cloud Functions (recorrência + lembretes)
 
-⚠️ **Requer plano Blaze** (pay-as-you-go) no Firebase. Com pouco uso (vocês 2), o custo é praticamente zero, mas precisa de cartão cadastrado. Configure alerta de orçamento (R$5/mês) pra ficar tranquilo.
+**Requer plano Blaze** (pay-as-you-go) no Firebase. Confira preços e cotas antes de publicar. Alertas de orçamento ajudam a acompanhar o consumo, mas não são um limite automático de cobrança.
 
 ### Deploy
 
 ```bash
-cd "A:/Nois Dois/functions"
+cd functions
 npm install
 cd ..
 firebase deploy --only functions
